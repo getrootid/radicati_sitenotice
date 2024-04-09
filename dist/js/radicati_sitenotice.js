@@ -5,7 +5,7 @@
     attach: function (context, settings) {
 
       // Get all notices on the page
-      $('.site-notice__block').once().each(function (i, item) {
+      $( once("body", '.site-notice__block') ).each(function (i, item) {
 
         var id = $(item).attr('data-site-notice-id');
         var cookieid = "site-notice--" + id;
