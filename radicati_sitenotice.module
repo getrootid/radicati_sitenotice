@@ -65,7 +65,7 @@ function radicati_sitenotice_form_alter(&$form, FormStateInterface $form_state) 
 
   // Performs an entity query to get all block types that have site_notice enabled.
   $query = \Drupal::entityQuery('block_content_type')
-    ->condition('third_party_settings.radicat_sitenotice.rsn_enabled', TRUE, '=');
+    ->condition('third_party_settings.radicati_sitenotice.rsn_enabled', TRUE, '=');
   $ids = $query->execute();
 
   // For each id add the add and edit form ids to the array.
@@ -78,7 +78,7 @@ function radicati_sitenotice_form_alter(&$form, FormStateInterface $form_state) 
 
   if($form['#form_id'] == 'block_content_type_edit_form' || $form['#form_id'] == 'block_content_type_add_form') {
     $entity = $form_state->getFormObject()->getEntity();
-    $setting_site_notice_enabled = $entity->getThirdPartySetting('radicat_sitenotice', 'rsn_enabled');
+    $setting_site_notice_enabled = $entity->getThirdPartySetting('radicati_sitenotice', 'rsn_enabled');
 
     $form['site_notice'] = [
       '#type' => 'checkbox',
@@ -148,7 +148,7 @@ function radicati_sitenotice_form_alter(&$form, FormStateInterface $form_state) 
 }
 
 function rsn_block_content_type_edit_form_builder($entity_type, $entity, &$form, FormStateInterface $form_state) {
-  $entity->setThirdPartySetting('radicat_sitenotice', 'rsn_enabled', $form_state->getValue('site_notice'));
+  $entity->setThirdPartySetting('radicati_sitenotice', 'rsn_enabled', $form_state->getValue('site_notice'));
 }
 
 function rsn_block_content_edit_form_builder($entity_type, $entity, &$form, FormStateInterface $form_state) {
