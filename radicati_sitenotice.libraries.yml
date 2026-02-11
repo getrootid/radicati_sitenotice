@@ -6,5 +6,4 @@ radicati_sitenotice:
   js:
     dist/js/radicati_sitenotice.js: { minified: false }
   dependencies:
-    - core/jquery
     - core/once

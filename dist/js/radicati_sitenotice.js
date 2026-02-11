@@ -1,37 +1,40 @@
-(function ($, Drupal) {
+(function (Drupal) {
   'use strict';
 
   Drupal.behaviors.radicati_sitenotice = {
     attach: function (context, settings) {
-
       // Get all notices on the page
-      $( once("body", '.site-notice__block') ).each(function (i, item) {
+      const notices = once('body', '.site-notice__block');
 
-        var id = $(item).attr('data-site-notice-id');
-        var cookieid = "site-notice--" + id;
+      notices.forEach((item) => {
+        const id = item.getAttribute('data-site-notice-id');
+        const cookieid = "site-notice--" + id;
 
         // Show notices if the cookie isn't set
         if( !Cookies.get(cookieid) ) {
-          $(item).show();
+          item.style.display = 'block';
         }
       });
 
       // On click, set the cookie so that this isn't shown again.
-      jQuery('.sitenotice__close__button').on('click', function() {
-        var $parent = $(this).closest('.site-notice__block');
-        var notice_id = $parent.attr('data-site-notice-id');
+      const closeButtons = once('body', '.sitenotice__close__button');
 
-        var attributes = {};
+      closeButtons.forEach((button) => {
+        button.addEventListener('click', function() {
+          const parent = this.closest('.site-notice__block');
+          const notice_id = parent.getAttribute('data-site-notice-id');
 
-        if($parent.attr('data-expiration-days') !== undefined) {
-          attributes.expires = Number($parent.attr('data-expiration-days'));
-        }
+          const attributes = {};
 
-        // Not setting expires automatically makes it a session cookie.
-        Cookies.set('site-notice--'+notice_id, 1, attributes);
+          if(parent.getAttribute('data-expiration-days') !== null) {
+            attributes.expires = Number(parent.getAttribute('data-expiration-days'));
+          }
 
+          // Not setting expires automatically makes it a session cookie.
+          Cookies.set('site-notice--'+notice_id, 1, attributes);
 
-        $(this).closest('.site-notice__block').hide();
+          parent.style.display = 'none';
+        });
       });
     }
   };
@@ -184,6 +187,6 @@
 
   }));
 
-})(jQuery, Drupal);
+})(Drupal);
 
 
