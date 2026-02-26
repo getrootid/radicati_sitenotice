@@ -4,6 +4,4 @@ radicati_sitenotice:
     theme:
       dist/css/radicati_sitenotice.css: {}
   js:
-    dist/js/radicati_sitenotice.js: { minified: false, attributes: { async: true } }
-  dependencies:
-    - core/once
+    dist/js/radicati_sitenotice.js: { }
